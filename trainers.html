@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Trainers — CEO Fitness LA</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Shared theme — copied from index.html. Keep the two in sync. */
+  :root{
+    --black:#0b0a08;
+    --panel:#17140f;
+    --panel-2:#1e1a13;
+    --line: rgba(201,162,39,0.22);
+    --gold:#c9a227;
+    --gold-bright:#f0c75e;
+    --cream:#f3efe4;
+    --muted:#b3ac9c;
+    --red:#8b2e2e;
+    --yellow:#e3b23c;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--black);
+    color:var(--cream);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:800;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  section{padding:96px 0;}
+  .eyebrow{
+    color:var(--gold);
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .lede{
+    color:var(--muted);
+    font-size:1.1rem;
+    max-width:540px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:2px;
+    font-weight:600;
+    font-size:1rem;
+    font-family:inherit;
+    text-decoration:none;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold-bright); outline-offset:3px;}
+  .btn-primary{background:var(--gold); color:var(--black);}
+  .btn-primary:hover{background:var(--gold-bright);}
+  @media (prefers-reduced-motion: reduce){
+    .btn{transition:none;}
+  }
+  .placeholder-flag{
+    color:var(--yellow); font-size:0.78rem; border:1px dashed rgba(227,178,60,0.5);
+    padding:6px 10px; margin-top:16px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:30;
+    background:rgba(11,10,8,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:1080px; margin:0 auto; padding:18px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .wordmark{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    color:var(--cream);
+    text-decoration:none;
+  }
+  .wordmark span{color:var(--gold);}
+  .back-link{font-size:0.95rem; color:var(--muted); text-decoration:none;}
+  .back-link:hover{color:var(--gold-bright);}
+
+  /* ---------- trainers ---------- */
+  .trainers-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;
+  }
+  .trainers-grid h1{
+    font-size:clamp(2.2rem, 4.5vw, 3.2rem);
+    line-height:1.05;
+    color:var(--cream);
+  }
+  .trainers-grid h1 em{font-style:normal; color:var(--gold);}
+  .trainers-grid .lede{margin-top:18px;}
+  @media (max-width:860px){ .trainers-grid{grid-template-columns:1fr;} }
+
+  #inquiry-form{
+    border:1px solid var(--line); padding:32px 26px;
+    display:flex; flex-direction:column; gap:18px;
+  }
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-size:0.85rem; font-weight:600; color:var(--cream);}
+  .field label .opt{color:var(--muted); font-weight:400;}
+  .field input,
+  .field textarea{
+    background:var(--panel); border:1px solid var(--line); color:var(--cream);
+    padding:12px 14px; font-size:1rem; font-family:inherit; border-radius:2px;
+  }
+  .field textarea{min-height:130px; resize:vertical;}
+  .field input:focus-visible,
+  .field textarea:focus-visible{outline:2px solid var(--gold-bright); outline-offset:0;}
+  .hp{position:absolute; left:-9999px;}
+  #inquiry-form .btn{align-self:flex-start;}
+  #form-status{font-size:0.9rem; color:var(--muted); min-height:1.4em; margin:0;}
+  #form-status.ok{color:var(--gold-bright);}
+  #form-status.err{color:#e2a3a3;}
+
+  footer{border-top:1px solid var(--line); padding:40px 0; color:var(--muted); font-size:0.85rem;}
+  .footer-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .footer-row a{text-decoration:none;}
+  .footer-row a:hover{color:var(--gold-bright);}
+
+  /* ---------- access gate ---------- */
+  #gate{
+    position:fixed; inset:0; z-index:100;
+    background:var(--black);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  #gate.hidden{display:none;}
+  .gate-card{
+    max-width:360px; width:100%; text-align:center;
+  }
+  .gate-card .wordmark{font-size:1.6rem; display:block; margin-bottom:8px;}
+  .gate-card p{color:var(--muted); font-size:0.9rem; margin:0 0 24px;}
+  #gate-form{display:flex; flex-direction:column; gap:12px;}
+  #gate-input{
+    background:var(--panel); border:1px solid var(--line); color:var(--cream);
+    padding:14px 16px; font-size:1rem; text-align:center; letter-spacing:0.08em;
+  }
+  #gate-input:focus-visible{outline:2px solid var(--gold-bright);}
+  #gate-error{color:#e2a3a3; font-size:0.85rem; min-height:1.2em;}
+  body.locked{overflow:hidden;}
+</style>
+</head>
+<body class="locked">
+
+<!--
+  PRE-LAUNCH ACCESS GATE — same gate as index.html. Remove this whole
+  <div id="gate">…</div> block (and the gate <script> at the bottom)
+  when the site goes public.
+-->
+<div id="gate">
+  <div class="gate-card">
+    <span class="wordmark">CEO<span>&nbsp;</span>FITNESS<span> LA</span></span>
+    <p>This site is still under construction. Enter the access code to preview it.</p>
+    <form id="gate-form">
+      <input id="gate-input" type="text" autocomplete="off" placeholder="ACCESS CODE" aria-label="Access code">
+      <button type="submit" class="btn btn-primary">Enter</button>
+      <div id="gate-error"></div>
+    </form>
+  </div>
+</div>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="wordmark">CEO<span>&nbsp;</span>FITNESS<span> LA</span></a>
+    <a href="index.html" class="back-link">← Back to main site</a>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <div class="wrap trainers-grid">
+      <div>
+        <div class="eyebrow">For Trainers</div>
+        <h1>Run your training business on <em>data</em>, not guesswork.</h1>
+        <p class="lede">After 12+ years building a client base in Los Angeles, we consult with other trainers on growing and running their business. That includes Praxium, the software we use to track and program every client session. Tell us about where you are and we'll be in touch.</p>
+        <div class="placeholder-flag">Placeholder copy — refine before launch</div>
+      </div>
+
+      <!--
+        Inquiry form — submits to Formspree. Replace YOUR_FORM_ID with the
+        ID from the Formspree dashboard (set the form's notification email
+        to hello@ceofitnessla.com there; the address isn't set in this HTML).
+      -->
+      <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="Trainer inquiry — ceofitnessla.com">
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone <span class="opt">(optional)</span></label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" required></textarea>
+        </div>
+        <!-- spam honeypot: Formspree drops submissions that fill this in -->
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="index.html">CEO Fitness LA</a>
+    <span>&copy; 2026 Training For Champions, LLC</span>
+  </div>
+</footer>
+
+<script>
+  // ---- inquiry form ----
+  // Submits in the background so visitors stay on the page. Without JS the
+  // form still posts normally and Formspree shows its own thank-you page.
+  const inquiryForm = document.getElementById('inquiry-form');
+  const statusEl = document.getElementById('form-status');
+
+  inquiryForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const button = inquiryForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    statusEl.className = '';
+    statusEl.textContent = 'Sending…';
+    try {
+      const res = await fetch(inquiryForm.action, {
+        method: 'POST',
+        body: new FormData(inquiryForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error(res.status);
+      inquiryForm.reset();
+      statusEl.className = 'ok';
+      statusEl.textContent = "Thanks — we got your message and will be in touch soon.";
+    } catch (err) {
+      statusEl.className = 'err';
+      statusEl.textContent = "Something went wrong. Please email hello@ceofitnessla.com instead.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
+
+<script>
+  // ---- pre-launch access gate (same code as index.html) ----
+  const ACCESS_CODE = "ceofitness2026";
+
+  const gate = document.getElementById('gate');
+  const form = document.getElementById('gate-form');
+  const input = document.getElementById('gate-input');
+  const errorEl = document.getElementById('gate-error');
+
+  if (sessionStorage.getItem('cfla_unlocked') === 'true') {
+    gate.classList.add('hidden');
+    document.body.classList.remove('locked');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (input.value.trim().toLowerCase() === ACCESS_CODE.toLowerCase()) {
+      sessionStorage.setItem('cfla_unlocked', 'true');
+      gate.classList.add('hidden');
+      document.body.classList.remove('locked');
+    } else {
+      errorEl.textContent = "That code isn't right — try again.";
+      input.value = '';
+      input.focus();
+    }
+  });
+</script>
+
+</body>
+</html>

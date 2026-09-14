@@ -12,7 +12,10 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 
 ## Site
 
-- Single-page static site: everything lives in `index.html` (inline CSS, no framework, no build step).
+- Static site, inline CSS, no framework, no build step:
+  - `index.html` — the main one-page site (Home/Approach/Programs/Pricing/Contact).
+  - `trainers.html` — business consulting / Praxium page for other trainers. Linked from the footer only; keep it out of the main nav. Its inquiry form posts to Formspree.
+- `trainers.html` carries its own copy of the theme CSS and the access gate. When changing shared styles (tokens, header, buttons, footer), update both pages.
 - Hosted on GitHub Pages from `main`; pushing to `main` deploys.
 - `CNAME` maps the custom domain `ceofitnessla.com` (DNS at Porkbun). **Don't touch it.**
 - `_config.yml` excludes this file from the published site.
@@ -21,8 +24,10 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 
 ## Launch checklist
 
-- [ ] Remove `<meta name="robots" content="noindex, nofollow">` (in `<head>`)
-- [ ] Remove the `#gate` div and its access-code `<script>` block at the bottom (plus the `locked` class on `<body>` and the gate CSS)
+- [ ] Remove `<meta name="robots" content="noindex, nofollow">` (in `<head>`) — **both** `index.html` and `trainers.html`
+- [ ] Remove the `#gate` div and its access-code `<script>` block at the bottom (plus the `locked` class on `<body>` and the gate CSS) — **both** pages
+- [ ] Formspree: replace `YOUR_FORM_ID` in `trainers.html` with the real form ID (form's notification email set to hello@ceofitnessla.com in the Formspree dashboard), then send a test inquiry
+- [ ] Final copy for `trainers.html` (currently placeholder, flagged on the page)
 - [ ] Toggle "Enforce HTTPS" in repo Settings > Pages once available
 - [ ] Real pricing for all 3 tiers
 - [ ] Real phone number (replaces `+1XXXXXXXXXX` in both the `tel:` and `sms:` links)
