@@ -45,6 +45,13 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - Theme tokens are CSS variables at the top of `styles.css` (`--gold: #c9a227`, `--black: #0b0a08`, etc.). Reuse them and the existing classes (`.wrap`, `.eyebrow`, `.lede`, `.btn-primary`, `.btn-ghost`, `.ph`, `.placeholder-flag`) rather than adding new colors or one-off styles.
 - Until "Enforce HTTPS" is on, preview the live site at http://ceofitnessla.com.
 
+## Content waiting on a home
+
+Written and approved, but there's nowhere on the site for it yet. Use it verbatim when the section it belongs to gets built.
+
+- **Solmaz's background** — for her profile/bio, once per-person profiles exist (today she appears only in photo placeholders and joint sentences):
+  > Solmaz began training clients in Shiraz, Iran, then built her career in Los Angeles and New York before returning to LA.
+
 ## Launch checklist
 
 - [ ] Remove `<meta name="robots" content="noindex, nofollow">` from the `<head>` of **every** page
