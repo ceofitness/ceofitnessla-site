@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="gate.js"></script>
+<script src="forms.js" defer></script>
 <style>
   /* Page-specific styles. Shared theme lives in styles.css. */
 
@@ -29,26 +30,6 @@
   .trainers-grid .lede{margin-top:18px;}
   @media (max-width:860px){ .trainers-grid{grid-template-columns:1fr;} }
 
-  #inquiry-form{
-    border:1px solid var(--line); padding:32px 26px;
-    display:flex; flex-direction:column; gap:18px;
-  }
-  .field{display:flex; flex-direction:column; gap:6px;}
-  .field label{font-size:0.85rem; font-weight:600; color:var(--cream);}
-  .field label .opt{color:var(--muted); font-weight:400;}
-  .field input,
-  .field textarea{
-    background:var(--panel); border:1px solid var(--line); color:var(--cream);
-    padding:12px 14px; font-size:1rem; font-family:inherit; border-radius:2px;
-  }
-  .field textarea{min-height:130px; resize:vertical;}
-  .field input:focus-visible,
-  .field textarea:focus-visible{outline:2px solid var(--gold-bright); outline-offset:0;}
-  .hp{position:absolute; left:-9999px;}
-  #inquiry-form .btn{align-self:flex-start;}
-  #form-status{font-size:0.9rem; color:var(--muted); min-height:1.4em; margin:0;}
-  #form-status.ok{color:var(--gold-bright);}
-  #form-status.err{color:#e2a3a3;}
 </style>
 </head>
 <body>
@@ -76,7 +57,7 @@
         ID from the Formspree dashboard (set the form's notification email
         to hello@ceofitnessla.com there; the address isn't set in this HTML).
       -->
-      <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="inquiry-form" class="form-card" data-formspree action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <input type="hidden" name="_subject" value="Trainer inquiry — ceofitnessla.com">
         <div class="field">
           <label for="f-name">Name</label>
@@ -97,7 +78,7 @@
         <!-- spam honeypot: Formspree drops submissions that fill this in -->
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn btn-primary">Send Inquiry</button>
-        <p id="form-status" role="status"></p>
+        <p class="form-status" role="status"></p>
       </form>
     </div>
   </section>
@@ -110,38 +91,6 @@
     <span>&copy; 2026 Training For Champions, LLC</span>
   </div>
 </footer>
-
-<script>
-  // ---- inquiry form ----
-  // Submits in the background so visitors stay on the page. Without JS the
-  // form still posts normally and Formspree shows its own thank-you page.
-  const inquiryForm = document.getElementById('inquiry-form');
-  const statusEl = document.getElementById('form-status');
-
-  inquiryForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    const button = inquiryForm.querySelector('button[type="submit"]');
-    button.disabled = true;
-    statusEl.className = '';
-    statusEl.textContent = 'Sending…';
-    try {
-      const res = await fetch(inquiryForm.action, {
-        method: 'POST',
-        body: new FormData(inquiryForm),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (!res.ok) throw new Error(res.status);
-      inquiryForm.reset();
-      statusEl.className = 'ok';
-      statusEl.textContent = "Thanks — we got your message and will be in touch soon.";
-    } catch (err) {
-      statusEl.className = 'err';
-      statusEl.textContent = "Something went wrong. Please email hello@ceofitnessla.com instead.";
-    } finally {
-      button.disabled = false;
-    }
-  });
-</script>
 
 </body>
 </html>

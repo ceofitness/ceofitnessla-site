@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="gate.js"></script>
+<script src="forms.js" defer></script>
 <style>
   /* Page-specific styles. Shared theme lives in styles.css. */
 
@@ -122,6 +123,7 @@
   }
   .contact-buttons{display:flex; gap:16px; flex-wrap:wrap;}
   .contact-buttons .btn{font-size:1.1rem; padding:16px 32px;}
+  #waitlist-form{width:100%; max-width:460px;}
   .contact-email{color:var(--muted); font-size:0.95rem;}
   .contact-email a{color:var(--gold-bright); text-decoration:underline;}
 </style>
@@ -214,6 +216,7 @@
       <div class="eyebrow">Pricing</div>
       <h2 style="font-size:2rem; color:var(--cream);">Straightforward pricing.</h2>
       <p class="lede" style="margin-top:14px;">No consultation required to see it. If it fits your budget and your schedule, that's the only qualifying step.</p>
+      <span class="tag tag-gold" style="margin-top:18px;">Currently accepting a limited number of new members</span>
       <div class="price-grid">
         <div class="price-card">
           <h3>Foundations</h3>
@@ -228,7 +231,7 @@
           <div class="placeholder-flag">Add real price before launch</div>
         </div>
         <div class="price-card">
-          <h3>Executive Retainer</h3>
+          <h3>Executive Membership</h3>
           <div class="price-num">[ $ /mo ]</div>
           <p class="desc">Our highest-touch tier — priority scheduling, travel-friendly programming, and direct line to your trainer.</p>
           <div class="placeholder-flag">Add real price before launch</div>
@@ -259,12 +262,51 @@
     <div class="wrap contact-inner">
       <div>
         <div class="eyebrow">Get Started</div>
-        <h2 style="font-size:2.2rem; color:var(--cream);">No forms. Call or text and let's talk.</h2>
+        <h2 style="font-size:2.2rem; color:var(--cream);">Apply to join the waitlist.</h2>
+        <p class="lede" style="margin-top:18px;">We take on a limited number of members at a time. Tell us where you're starting and we'll reach out as spots open.</p>
       </div>
+
       <div class="contact-buttons">
-        <a href="tel:+1XXXXXXXXXX" class="btn btn-primary">Call Now</a>
-        <a href="sms:+1XXXXXXXXXX" class="btn btn-ghost">Text Now</a>
+        <button type="button" class="btn btn-primary" id="waitlist-toggle" aria-expanded="false" aria-controls="waitlist-form">Apply for the Waitlist</button>
       </div>
+
+      <!--
+        Waitlist form — submits to Formspree (see forms.js). Replace
+        YOUR_WAITLIST_FORM_ID with the ID from the Formspree dashboard
+        (set that form's notification email to hello@ceofitnessla.com
+        there; the address isn't set in this HTML).
+      -->
+      <form id="waitlist-form" class="form-card" data-formspree
+            data-success-message="Thanks — you're on the waitlist. We'll be in touch as spots open."
+            action="https://formspree.io/f/YOUR_WAITLIST_FORM_ID" method="POST" hidden>
+        <input type="hidden" name="_subject" value="Waitlist application — ceofitnessla.com">
+        <div class="field">
+          <label for="w-name">Name</label>
+          <input id="w-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="w-email">Email</label>
+          <input id="w-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="w-phone">Phone <span class="opt">(optional)</span></label>
+          <input id="w-phone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="w-source">How did you hear about us?</label>
+          <select id="w-source" name="source">
+            <option value="Referral">Referral</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Google">Google</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <!-- spam honeypot: Formspree drops submissions that fill this in -->
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary">Join the Waitlist</button>
+        <p class="form-status" role="status"></p>
+      </form>
+
       <p class="contact-email">Prefer email? <a href="mailto:hello@ceofitnessla.com">hello@ceofitnessla.com</a></p>
     </div>
   </section>
@@ -278,6 +320,19 @@
     <span>&copy; 2026 Training For Champions, LLC</span>
   </div>
 </footer>
+
+<script>
+  // ---- waitlist form toggle ----
+  const waitlistToggle = document.getElementById('waitlist-toggle');
+  const waitlistForm = document.getElementById('waitlist-form');
+
+  waitlistToggle.addEventListener('click', function(){
+    const open = waitlistForm.hidden;
+    waitlistForm.hidden = !open;
+    waitlistToggle.setAttribute('aria-expanded', String(open));
+    if (open) document.getElementById('w-name').focus();
+  });
+</script>
 
 </body>
 </html>
