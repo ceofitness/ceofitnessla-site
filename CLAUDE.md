@@ -13,16 +13,16 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 
   | Sessions/week | Executive Performance | Performance | Foundation | Pay-As-You-Go |
   |---|---|---|---|---|
-  | 1x | $190 | $240 | $245 | $250 |
-  | 2x | $186 | $230 | $240 | $250 |
-  | 3x | $182 | $220 | $235 | $250 |
-  | 4x | $178 | $210 | $230 | $250 |
-  | 5x | $175 | $200 | $225 | $250 |
+  | 1x | $190 | $235 | $240 | $250 |
+  | 2x | $186 | $225 | $235 | $250 |
+  | 3x | $182 | $215 | $230 | $250 |
+  | 4x | $178 | $205 | $225 | $250 |
+  | 5x | $175 | $195 | $220 | $250 |
 
-  - Tracking rises with tier: basic session logging → progress trends → advanced analytics and program adjustments → full concierge tracking with the most frequent, detailed testing.
+  - Tracking rises with tier: basic session logging → progress trends → advanced analytics and program adjustments → fully managed tracking with the most frequent, detailed testing. (Don't use the word "concierge" anywhere on the site.)
   - **Estimated totals** live in the Pricing details section only (never on the cards) and follow the selector:
-    - Foundation — weekly: `rate × sessions/week`. At 5x: $1,125/week.
-    - Performance — monthly estimate: `rate × sessions/week × 52 ÷ 12`, rounded to the nearest $10, always worded as "about". At 5x: $4,330/month. Exact amount depends on sessions scheduled that month.
+    - Foundation — weekly: `rate × sessions/week`. At 5x: $1,100/week.
+    - Performance — monthly estimate: `rate × sessions/week × 52 ÷ 12`, rounded to the nearest $10, always worded as "about". At 5x: $4,230/month. Exact amount depends on sessions scheduled that month.
     - Executive Performance — annual: `rate × sessions/week × 50`. At 5x: $43,750/year.
     - Pay-As-You-Go — no period total; billed per session.
   - Foundation and Performance bill upfront for the period's sessions; Executive Performance bills annually on 50 training weeks, and at 4x/5x adds guaranteed holiday coverage and uncharged sick days.
