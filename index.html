@@ -269,8 +269,10 @@
 
       <details class="pricing-details">
         <summary>Pricing details</summary>
-        <p><strong>Foundation &amp; Performance.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation.</p>
-        <p><strong>Executive Performance.</strong> Billed annually, based on 50 training weeks a year — your trainer's 2 weeks of vacation aren't billed. You'll also get limited virtual check-ins during that time to keep you on track.</p>
+        <p><strong>Pay-As-You-Go.</strong> Billed per session, so there's no period total — you pay for the sessions you book.</p>
+        <p><strong>Foundation.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation. <span id="total-foundation">At 5x per week, that comes to $1,125 per week.</span></p>
+        <p><strong>Performance.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation. <span id="total-performance">At 5x per week, that comes to about $4,330 per month.</span> The exact amount depends on how many sessions are scheduled that month.</p>
+        <p><strong>Executive Performance.</strong> Billed annually, based on 50 training weeks a year — your trainer's 2 weeks of vacation aren't billed. You'll also get limited virtual check-ins during that time to keep you on track. <span id="total-executive">At 5x per week, that comes to $43,750 per year.</span></p>
         <p><strong>Executive Performance, training 4x or 5x per week.</strong> You also get guaranteed holiday coverage — your session still happens, in person if your trainer's in town or virtual if traveling — and sick days are fully covered: if your trainer's out sick, that session is never billed and never owed back.</p>
       </details>
     </div>
@@ -381,12 +383,28 @@
   const freq = document.getElementById('freq');
   const waitlistFrequency = document.getElementById('w-frequency');
 
+  // Estimated totals shown in the Pricing details section. Executive
+  // Performance bills annually on 50 training weeks; Performance is a
+  // monthly estimate off 52 weeks, rounded to the nearest $10; Foundation
+  // is a straight weekly total. Pay-As-You-Go has no period total.
+  const money = n => '$' + n.toLocaleString('en-US');
+
   function updatePricing(){
     const perWeek = Number(freq.value);
     for (const id in RATES) {
       document.getElementById(id).innerHTML =
         '$' + RATES[id][perWeek] + '<span class="price-note"> / session</span>';
     }
+
+    const at = 'At ' + perWeek + 'x per week, that comes to ';
+    const weekly = RATES['price-foundation'][perWeek] * perWeek;
+    const monthly = Math.round(RATES['price-performance'][perWeek] * perWeek * 52 / 12 / 10) * 10;
+    const annual = RATES['price-executive'][perWeek] * perWeek * 50;
+
+    document.getElementById('total-foundation').textContent = at + money(weekly) + ' per week.';
+    document.getElementById('total-performance').textContent = at + 'about ' + money(monthly) + ' per month.';
+    document.getElementById('total-executive').textContent = at + money(annual) + ' per year.';
+
     // keep the waitlist form in step with what they were just looking at
     waitlistFrequency.value = perWeek + 'x per week';
   }

@@ -20,6 +20,11 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
   | 5x | $175 | $200 | $225 | $250 |
 
   - Tracking rises with tier: basic session logging → progress trends → advanced analytics and program adjustments → full concierge tracking with the most frequent, detailed testing.
+  - **Estimated totals** live in the Pricing details section only (never on the cards) and follow the selector:
+    - Foundation — weekly: `rate × sessions/week`. At 5x: $1,125/week.
+    - Performance — monthly estimate: `rate × sessions/week × 52 ÷ 12`, rounded to the nearest $10, always worded as "about". At 5x: $4,330/month. Exact amount depends on sessions scheduled that month.
+    - Executive Performance — annual: `rate × sessions/week × 50`. At 5x: $43,750/year.
+    - Pay-As-You-Go — no period total; billed per session.
   - Foundation and Performance bill upfront for the period's sessions; Executive Performance bills annually on 50 training weeks, and at 4x/5x adds guaranteed holiday coverage and uncharged sick days.
   - **Card fronts stay bare:** tier name, price, one tracking line. No badges, asterisks, or fine print — billing terms belong in the "Pricing details" `<details>` section below the cards, at normal body size, never styled as a disclaimer.
 - Current credential line: 12+ years experience (specific certs TBD).
