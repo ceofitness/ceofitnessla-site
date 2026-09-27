@@ -147,7 +147,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <h1>Fitness coaching built for people who already perform under pressure.</h1>
+        <h1>Fitness coaching built for people who already perform well under pressure.</h1>
         <p class="lede">Data-driven training for executives, founders, and top performers — in person in Los Angeles, or by video anywhere. No forms to fill out. Just results you can see.</p>
         <div class="cta-row">
           <a href="#contact" class="btn btn-primary">Get Started</a>
@@ -217,24 +217,35 @@
       <h2 style="font-size:2rem; color:var(--cream);">Straightforward pricing.</h2>
       <p class="lede" style="margin-top:14px;">No consultation required to see it. If it fits your budget and your schedule, that's the only qualifying step.</p>
       <span class="tag tag-gold" style="margin-top:18px;">Currently accepting a limited number of new members</span>
+      <div class="field" style="max-width:240px; margin-top:32px;">
+        <label for="freq">Sessions per week</label>
+        <select id="freq">
+          <option value="1">1x per week</option>
+          <option value="2">2x per week</option>
+          <option value="3">3x per week</option>
+          <option value="4">4x per week</option>
+          <option value="5" selected>5x per week</option>
+        </select>
+      </div>
+
       <div class="price-grid">
         <div class="price-card">
-          <h3>Foundations</h3>
-          <div class="price-num">[ $ /mo ]</div>
-          <p class="desc">Weekly in-person or virtual sessions, full assessment, and a program built around your baseline.</p>
-          <div class="placeholder-flag">Add real price before launch</div>
+          <h3>Session to Session</h3>
+          <div class="price-num">$250<span class="price-note"> / session</span></div>
+          <p class="desc">No commitment, highest rate. Booked one session at a time around whatever your week looks like.</p>
         </div>
         <div class="price-card">
-          <h3>Performance</h3>
-          <div class="price-num">[ $ /mo ]</div>
-          <p class="desc">Multiple weekly sessions, ongoing data tracking, and direct access between sessions.</p>
-          <div class="placeholder-flag">Add real price before launch</div>
+          <h3>Monthly Membership</h3>
+          <div class="price-num" id="monthly-total">$4,000<span class="price-note"> / mo</span></div>
+          <p class="price-note" id="monthly-rate">$200 per session at 5x per week</p>
+          <p class="desc">Paid up front for the month. Includes programming and tracking in the app, so your training keeps running — and your rate stays the same — through travel and vacation weeks.</p>
         </div>
         <div class="price-card">
-          <h3>Executive Membership</h3>
+          <h3>Annual Membership</h3>
           <div class="price-num">[ $ /mo ]</div>
-          <p class="desc">Our highest-touch tier — priority scheduling, travel-friendly programming, and direct line to your trainer.</p>
-          <div class="placeholder-flag">Add real price before launch</div>
+          <p class="price-note">Best rate — below the monthly per-session price</p>
+          <p class="desc">A year up front at our lowest per-session rate, with everything in the monthly membership plus annual-only extras.</p>
+          <div class="placeholder-flag">Add annual rate + what's included before launch</div>
         </div>
       </div>
     </div>
@@ -293,6 +304,16 @@
           <input id="w-phone" name="phone" type="tel" autocomplete="tel">
         </div>
         <div class="field">
+          <label for="w-frequency">How often do you want to train?</label>
+          <select id="w-frequency" name="frequency">
+            <option value="1x per week">1x per week</option>
+            <option value="2x per week">2x per week</option>
+            <option value="3x per week">3x per week</option>
+            <option value="4x per week">4x per week</option>
+            <option value="5x per week" selected>5x per week</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="w-source">How did you hear about us?</label>
           <select id="w-source" name="source">
             <option value="Referral">Referral</option>
@@ -320,6 +341,33 @@
     <span>&copy; 2026 Training For Champions, LLC</span>
   </div>
 </footer>
+
+<script>
+  // ---- pricing: sessions-per-week selector ----
+  // Monthly membership is billed up front for the month, priced as 4 weeks
+  // of sessions. Rate per session drops as weekly frequency goes up; $200
+  // at 5x per week is the floor for monthly. Session to session is $250.
+  const MONTHLY_RATES = { 1: 240, 2: 230, 3: 220, 4: 210, 5: 200 };
+  const WEEKS_PER_MONTH = 4;
+
+  const freq = document.getElementById('freq');
+  const monthlyTotal = document.getElementById('monthly-total');
+  const monthlyRate = document.getElementById('monthly-rate');
+  const waitlistFrequency = document.getElementById('w-frequency');
+
+  function updatePricing(){
+    const perWeek = Number(freq.value);
+    const rate = MONTHLY_RATES[perWeek];
+    const total = rate * perWeek * WEEKS_PER_MONTH;
+    monthlyTotal.innerHTML = '$' + total.toLocaleString('en-US') +
+      '<span class="price-note"> / mo</span>';
+    monthlyRate.textContent = '$' + rate + ' per session at ' + perWeek + 'x per week';
+    // keep the waitlist form in step with what they were just looking at
+    waitlistFrequency.value = perWeek + 'x per week';
+  }
+
+  freq.addEventListener('change', updatePricing);
+</script>
 
 <script>
   // ---- waitlist form toggle ----

@@ -8,7 +8,12 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - **Voice:** blends Kevin's data-driven style with Solmaz's motivational style.
 - **Pricing is shown openly** — prices stay visible to everyone, no "book a consultation to see pricing."
 - **The waitlist form is the primary CTA** on `index.html` (membership is limited-availability). Email (hello@ceofitnessla.com) is a lower-emphasis backup below it.
-- **Membership, not retainer** — tiers are memberships.
+- **Membership, not retainer** — tiers are memberships, named by commitment length.
+- **Pricing model:** longer commitment = lower per-session rate.
+  - Session to session: **$250/session** (highest rate, no commitment).
+  - Monthly membership: paid up front, priced as 4 weeks of sessions. Per-session rate slides by weekly frequency — 1x $240, 2x $230, 3x $220, 4x $210, 5x **$200** (the floor for monthly). Rates live in `MONTHLY_RATES` in `index.html`.
+  - Annual membership: lowest rate, below $200/session. **Rate and annual-only extras still TBD.**
+  - Memberships include Praxium programming and tracking, which is what keeps the monthly amount steady through vacation weeks (for members and for Kevin).
 - Current credential line: 12+ years experience (specific certs TBD).
 
 ## Site
@@ -37,7 +42,7 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - [ ] Confirm hello@ceofitnessla.com actually receives mail (Porkbun forwarding) — it's the fallback on both pages
 - [ ] Final copy for `trainers.html` (currently placeholder, flagged on the page)
 - [ ] Toggle "Enforce HTTPS" in repo Settings > Pages once available
-- [ ] Real pricing for all 3 tiers
+- [ ] Annual membership rate + what's included (only pricing placeholder left)
 - [ ] Real photos (hero + Kevin + Solmaz)
 - [ ] Finished logo (replaces text wordmark)
 - [ ] Specific certifications (2 chips currently placeholder)
