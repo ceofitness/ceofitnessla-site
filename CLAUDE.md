@@ -9,11 +9,19 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - **Pricing is shown openly** — prices stay visible to everyone, no "book a consultation to see pricing."
 - **The waitlist form is the primary CTA** on `index.html` (membership is limited-availability). Email (hello@ceofitnessla.com) is a lower-emphasis backup below it.
 - **Membership, not retainer** — tiers are memberships, named by commitment length.
-- **Pricing model:** longer commitment = lower per-session rate.
-  - Session to session: **$250/session** (highest rate, no commitment).
-  - Monthly membership: paid up front, priced as 4 weeks of sessions. Per-session rate slides by weekly frequency — 1x $240, 2x $230, 3x $220, 4x $210, 5x **$200** (the floor for monthly). Rates live in `MONTHLY_RATES` in `index.html`.
-  - Annual membership: lowest rate, below $200/session. **Rate and annual-only extras still TBD.**
-  - Memberships include Praxium programming and tracking, which is what keeps the monthly amount steady through vacation weeks (for members and for Kevin).
+- **Pricing model:** four tiers, longer commitment = lower per-session rate. Rates live in `RATES` in `index.html`; the sessions-per-week selector updates all four cards at once and prefills the waitlist form's frequency field.
+
+  | Sessions/week | Executive Performance | Performance | Foundation | Pay-As-You-Go |
+  |---|---|---|---|---|
+  | 1x | $190 | $240 | $245 | $250 |
+  | 2x | $186 | $230 | $240 | $250 |
+  | 3x | $182 | $220 | $235 | $250 |
+  | 4x | $178 | $210 | $230 | $250 |
+  | 5x | $175 | $200 | $225 | $250 |
+
+  - Tracking rises with tier: basic session logging → progress trends → advanced analytics and program adjustments → full concierge tracking with the most frequent, detailed testing.
+  - Foundation and Performance bill upfront for the period's sessions; Executive Performance bills annually on 50 training weeks, and at 4x/5x adds guaranteed holiday coverage and uncharged sick days.
+  - **Card fronts stay bare:** tier name, price, one tracking line. No badges, asterisks, or fine print — billing terms belong in the "Pricing details" `<details>` section below the cards, at normal body size, never styled as a disclaimer.
 - Current credential line: 12+ years experience (specific certs TBD).
 
 ## Site
@@ -42,7 +50,6 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - [ ] Confirm hello@ceofitnessla.com actually receives mail (Porkbun forwarding) — it's the fallback on both pages
 - [ ] Final copy for `trainers.html` (currently placeholder, flagged on the page)
 - [ ] Toggle "Enforce HTTPS" in repo Settings > Pages once available
-- [ ] Annual membership rate + what's included (only pricing placeholder left)
 - [ ] Real photos (hero + Kevin + Solmaz)
 - [ ] Finished logo (replaces text wordmark)
 - [ ] Specific certifications (2 chips currently placeholder)
