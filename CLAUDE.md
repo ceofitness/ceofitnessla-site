@@ -20,13 +20,12 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
   | 5x | $175 | $195 | $220 | $250 |
 
   - Tracking rises with tier: basic session logging → progress trends → advanced analytics and program adjustments → fully managed tracking with the most frequent, detailed testing. (Don't use the word "concierge" anywhere on the site.)
-  - **Estimated totals** live in the Pricing details section only (never on the cards) and follow the selector:
-    - Foundation — weekly: `rate × sessions/week`. At 5x: $1,100/week.
-    - Performance — monthly estimate: `rate × sessions/week × 52 ÷ 12`, rounded to the nearest $10, always worded as "about". At 5x: $4,230/month. Exact amount depends on sessions scheduled that month.
-    - Executive Performance — annual: `rate × sessions/week × 50`. At 5x: $43,750/year.
-    - Pay-As-You-Go — no period total; billed per session.
-  - Foundation and Performance bill upfront for the period's sessions; Executive Performance bills annually on 50 training weeks, and at 4x/5x adds guaranteed holiday coverage and uncharged sick days.
-  - **Card fronts stay bare:** tier name, price, one tracking line. No badges, asterisks, or fine print — billing terms belong in the "Pricing details" `<details>` section below the cards, at normal body size, never styled as a disclaimer.
+  - **Each card shows its period total**, driven by the selector: session count (small, above), the total (largest), the period, then `$[rate] per session`, then the one-line tracking description.
+    - Foundation — weekly: `rate × sessions/week`. At 5x: 5 sessions, $1,100 per week.
+    - Performance — monthly estimate: `rate × sessions/week × 52 ÷ 12`, rounded to the nearest $10; session count `sessions/week × 52 ÷ 12` rounded to a whole number. Both hedged with "about". At 5x: about 22 sessions, about $4,230 per month.
+    - Executive Performance — annual: `rate × sessions/week × 50`; session count `sessions/week × 50`. At 5x: 250 sessions, $43,750 per year.
+    - Pay-As-You-Go — no period total; "$250 per session" with "Billed per session" beneath.
+  - **No badges, asterisks, or fine print on the cards.** Billing terms live in the "Pricing details" `<details>` section below them, at normal body size, never styled as a disclaimer. Totals appear on the cards only — don't repeat them in the details.
 - Current credential line: 12+ years experience (specific certs TBD).
 
 ## Site

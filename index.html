@@ -105,9 +105,13 @@
   .price-num{
     font-family:'Big Shoulders Display', sans-serif;
     font-weight:800; font-size:2rem; color:var(--gold);
-    margin:14px 0;
+    margin:4px 0 10px;
+    line-height:1.15;
   }
   .price-note{font-size:0.8rem; color:var(--muted); font-style:normal;}
+  .price-count{margin:0;}
+  .price-period{display:block;}
+  .price-rate{margin:0 0 4px;}
   .price-card p.desc{color:var(--muted); font-size:0.92rem; flex-grow:1;}
   @media (max-width:1000px){ .price-grid{grid-template-columns:repeat(2,1fr); gap:20px;} }
   @media (max-width:600px){ .price-grid{grid-template-columns:1fr;} }
@@ -247,32 +251,41 @@
       <div class="price-grid">
         <div class="price-card">
           <h3>Pay-As-You-Go</h3>
-          <div class="price-num" id="price-payg">$250<span class="price-note"> / session</span></div>
+          <p class="price-note price-count" aria-hidden="true">&nbsp;</p>
+          <div class="price-num" id="price-payg">$250<span class="price-note price-period">per session</span></div>
+          <p class="price-note price-rate">Billed per session</p>
           <p class="desc">Basic session logging.</p>
         </div>
         <div class="price-card">
           <h3>Foundation</h3>
-          <div class="price-num" id="price-foundation">$220<span class="price-note"> / session</span></div>
+          <p class="price-note price-count" id="count-foundation">5 sessions</p>
+          <div class="price-num" id="price-foundation">$1,100<span class="price-note price-period">per week</span></div>
+          <p class="price-note price-rate" id="rate-foundation">$220 per session</p>
           <p class="desc">Progress trend tracking.</p>
         </div>
         <div class="price-card">
           <h3>Performance</h3>
-          <div class="price-num" id="price-performance">$195<span class="price-note"> / session</span></div>
+          <p class="price-note price-count" id="count-performance">About 22 sessions</p>
+          <div class="price-num" id="price-performance"><span class="price-note">about </span>$4,230<span class="price-note price-period">per month</span></div>
+          <p class="price-note price-rate" id="rate-performance">$195 per session</p>
           <p class="desc">Advanced analytics and program adjustments.</p>
         </div>
         <div class="price-card">
           <h3>Executive Performance</h3>
-          <div class="price-num" id="price-executive">$175<span class="price-note"> / session</span></div>
+          <p class="price-note price-count" id="count-executive">250 sessions</p>
+          <div class="price-num" id="price-executive">$43,750<span class="price-note price-period">per year</span></div>
+          <p class="price-note price-rate" id="rate-executive">$175 per session</p>
           <p class="desc">Fully managed tracking, with the most frequent and detailed fitness testing of any tier.</p>
         </div>
       </div>
 
       <details class="pricing-details">
         <summary>Pricing details</summary>
+        <p>Totals reflect a full schedule. Weeks or months with holidays are billed for the sessions actually scheduled.</p>
         <p><strong>Pay-As-You-Go.</strong> Billed per session, so there's no period total — you pay for the sessions you book.</p>
-        <p><strong>Foundation.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation. <span id="total-foundation">At 5x per week, that comes to $1,100 per week.</span></p>
-        <p><strong>Performance.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation. <span id="total-performance">At 5x per week, that comes to about $4,230 per month.</span> The exact amount depends on how many sessions are scheduled that month.</p>
-        <p><strong>Executive Performance.</strong> Billed annually, based on 50 training weeks a year — your trainer's 2 weeks of vacation aren't billed. You'll also get limited virtual check-ins during that time to keep you on track. <span id="total-executive">At 5x per week, that comes to $43,750 per year.</span></p>
+        <p><strong>Foundation.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation.</p>
+        <p><strong>Performance.</strong> Billed upfront based on the sessions we'll do that period — already accounts for any known holidays or vacation. The exact amount depends on how many sessions are scheduled that month.</p>
+        <p><strong>Executive Performance.</strong> Billed annually, based on 50 training weeks a year — your trainer's 2 weeks of vacation aren't billed. You'll also get limited virtual check-ins during that time to keep you on track.</p>
         <p><strong>Executive Performance, training 4x or 5x per week.</strong> You also get guaranteed holiday coverage — your session still happens, in person if your trainer's in town or virtual if traveling — and sick days are fully covered: if your trainer's out sick, that session is never billed and never owed back.</p>
       </details>
     </div>
@@ -384,27 +397,47 @@
   const freq = document.getElementById('freq');
   const waitlistFrequency = document.getElementById('w-frequency');
 
-  // Estimated totals shown in the Pricing details section. Executive
-  // Performance bills annually on 50 training weeks; Performance is a
-  // monthly estimate off 52 weeks, rounded to the nearest $10; Foundation
-  // is a straight weekly total. Pay-As-You-Go has no period total.
+  // Each card shows its period total plus the per-session rate. Executive
+  // Performance bills annually on 50 training weeks; Performance is a monthly
+  // estimate off 52 weeks, rounded to the nearest $10 with its session count
+  // rounded to a whole number; Foundation is a straight weekly total.
+  // Pay-As-You-Go has no period total.
   const money = n => '$' + n.toLocaleString('en-US');
+  const small = t => '<span class="price-note">' + t + '</span>';
 
   function updatePricing(){
     const perWeek = Number(freq.value);
-    for (const id in RATES) {
-      document.getElementById(id).innerHTML =
-        '$' + RATES[id][perWeek] + '<span class="price-note"> / session</span>';
+    const rates = {};
+    for (const id in RATES) rates[id] = RATES[id][perWeek];
+
+    const monthlySessions = Math.round(perWeek * 52 / 12);
+    const annualSessions = perWeek * 50;
+    const monthlyTotal = Math.round(rates['price-performance'] * perWeek * 52 / 12 / 10) * 10;
+
+    const period = t => '<span class="price-note price-period">' + t + '</span>';
+
+    document.getElementById('price-payg').innerHTML =
+      money(rates['price-payg']) + period('per session');
+
+    document.getElementById('count-foundation').textContent =
+      perWeek + (perWeek === 1 ? ' session' : ' sessions');
+    document.getElementById('price-foundation').innerHTML =
+      money(rates['price-foundation'] * perWeek) + period('per week');
+
+    document.getElementById('count-performance').textContent =
+      'About ' + monthlySessions + ' sessions';
+    document.getElementById('price-performance').innerHTML =
+      small('about ') + money(monthlyTotal) + period('per month');
+
+    document.getElementById('count-executive').textContent =
+      annualSessions + ' sessions';
+    document.getElementById('price-executive').innerHTML =
+      money(rates['price-executive'] * perWeek * 50) + period('per year');
+
+    for (const tier of ['foundation', 'performance', 'executive']) {
+      document.getElementById('rate-' + tier).textContent =
+        money(rates['price-' + tier]) + ' per session';
     }
-
-    const at = 'At ' + perWeek + 'x per week, that comes to ';
-    const weekly = RATES['price-foundation'][perWeek] * perWeek;
-    const monthly = Math.round(RATES['price-performance'][perWeek] * perWeek * 52 / 12 / 10) * 10;
-    const annual = RATES['price-executive'][perWeek] * perWeek * 50;
-
-    document.getElementById('total-foundation').textContent = at + money(weekly) + ' per week.';
-    document.getElementById('total-performance').textContent = at + 'about ' + money(monthly) + ' per month.';
-    document.getElementById('total-executive').textContent = at + money(annual) + ' per year.';
 
     // keep the waitlist form in step with what they were just looking at
     waitlistFrequency.value = perWeek + 'x per week';
