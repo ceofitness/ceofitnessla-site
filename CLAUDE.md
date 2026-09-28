@@ -43,6 +43,16 @@ CEO Fitness LA targets CEOs, execs, founders, and high-earners generally
 - `_config.yml` excludes this file from the published site.
 - Theme tokens are CSS variables at the top of `styles.css` (`--gold: #c9a227`, `--black: #0b0a08`, etc.). Reuse them and the existing classes (`.wrap`, `.eyebrow`, `.lede`, `.btn-primary`, `.btn-ghost`, `.ph`, `.placeholder-flag`) rather than adding new colors or one-off styles.
 - Until "Enforce HTTPS" is on, preview the live site at http://ceofitnessla.com.
+- **The access gate is soft, not security.** `gate.js` (with the code in it) is in a public repo and served to every visitor, so anyone who looks can read it. Fine for keeping casual visitors out; never put anything private on the site pre-launch.
+- **Local preview:** `.claude/launch.json` runs `python3 -m http.server 8765` at the repo root. It's excluded via `.git/info/exclude` (local-only, so it won't appear in a fresh clone — recreate it if needed) and must never be committed. Open pages over `http://localhost:8765`, not `file://`, or the gate's `sessionStorage` unlock behaves differently.
+
+## Open copy decisions
+
+Kevin's rulings — don't "fix" these in a later pass without asking.
+
+- **The hero lede keeps "No forms to fill out. Just results you can see."** even though the waitlist form sits below it. Kevin's call: "it's barely a form." It reads as a contradiction on a skim, so it may come back up, but leave it until he says otherwise.
+- **"Credentials" is the About section.** The footer's "More about us →" points at `#credentials`, and that's where the bio paragraph, the client-locations line, and the certification chips live. There's no separate About section, and no per-person profiles yet.
+- **Open, not yet decided:** the Performance paragraph in Pricing details still ends with "The exact amount depends on how many sessions are scheduled that month," which says roughly the same thing as the section's opening "Totals reflect a full schedule" sentence. Redundant but harmless; drop it when the copy gets a pass.
 
 ## Content waiting on a home
 
